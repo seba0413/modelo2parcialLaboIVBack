@@ -6,7 +6,7 @@ class Middleware
 {
     public static function ValidarToken($request,$response,$next)
     {
-        $token = $request->getHeader("Autorizacion");
+        $token = $request->getHeader("Authorization");
         $validacionToken = Token::VerificarToken($token[0]);
         if($validacionToken["Estado"] == "OK"){
             $request = $request->withAttribute("payload", $validacionToken);
@@ -23,7 +23,7 @@ class Middleware
         $payload = $request->getAttribute("payload")["Payload"];
         $data = $payload->data;
 
-        if($data->tipo == "admin"){
+        if($data->campo3 == "administrador"){
             return $next($request,$response);
         }
         else{

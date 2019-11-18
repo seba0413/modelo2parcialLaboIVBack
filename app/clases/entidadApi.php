@@ -73,6 +73,26 @@ class EntidadApi
         }
         return $response->withJson($mensaje, 200);
     }
+
+    public function ObtenerEntidades($request, $response, $args)
+    {
+        try
+        {
+            $campo3 = $args['campo3'];
+            $entidadDao = new App\Models\Entidad;
+
+            $entidades = $entidadDao->where('campo3', '=', $campo3)
+                                    ->select('campo1')
+                                    ->get();
+        }
+        catch(Exception $e)
+        {
+            $error = $e->getMessage();
+            return array("Estado" => "Error", "Mensaje" => $error);
+        }
+
+        return $response->withJson($entidades, 200);
+    }
     
 }
 ?>

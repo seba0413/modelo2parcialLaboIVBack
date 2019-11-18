@@ -14,21 +14,29 @@ require_once "middleware.php";
 
 require_once "../app/clases/entidadApi.php";
 require_once "../app/models/entidad.php";
+require_once "../app/clases/entidad2Api.php";
+require_once "../app/models/entidad2.php";
 
 
 return function (App $app) {
     $container = $app->getContainer();
+
+    //PARCIAL LABO IV 
     
     $app->post('/entidad/', \EntidadApi::class . ':AltaEntidad');
     $app->post('/entidad/login/', \EntidadApi::class . ':Login');
+    $app->get('/entidades/{campo3}/', \EntidadApi::class . ':ObtenerEntidades');
+
+
+
+    $app->post('/entidad2/alta/', \Entidad2Api::class . ':AltaEntidad2')
+    ->add(\Middleware::class . ':ValidarAdmin')
+    ->add(\Middleware::class . ':ValidarToken');
 
 
 
 
-
-
-
-    //------------------------------------------ Modelo programación -------------
+    //PARCIAL PROGRAMACION III
 
     $app->post('/usuario/', \UsuarioApi::class . ':AltaUsuario');
     $app->post('/login/', \UsuarioApi::class . ':Login');
