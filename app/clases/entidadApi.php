@@ -2,6 +2,45 @@
 
 class EntidadApi
 {
+    public function Login($request, $response, $args)
+    {
+        try
+        {
+            $data = file_get_contents('php://input');
+            $entidadAux = json_decode($data);
+            $campo1 = $entidadAux->campo1;
+            $campo2 = $entidadAux->campo2;
+
+            $entidadDao = new App\Models\Entidad;
+
+            $entidad =  $entidadDao->where('campo1', '=', $campo1)
+                                   ->where('campo2', '=', $campo2)
+                                   ->first();
+                      
+            if($entidad)
+            {
+                $datos = [
+                    'id' => $entidad->id,
+                    'campo1' => $campo1,
+                    'campo2' => $campo2,
+                    'campo3' => $entidad->campo3,
+                ];   
+
+                $token = Token::CrearToken($datos);
+                $mensaje = array("Mensaje" => "Bienvenido " . $campo1, "Token" => $token);
+            } 
+            else
+                $mensaje = array("Estado" => "Error", "Mensaje" => "Mail y/o clave incorrectos");                 
+        }
+        catch(Exception $e)
+        {
+            $error = $e->getMessage();
+            $mensaje =  array("Estado" => "Error ", "Mensaje " => $error); 
+        }
+
+        return $response->withJson($mensaje, 200);
+    }
+
     public function AltaEntidad($request, $response, $args)
     {
         try

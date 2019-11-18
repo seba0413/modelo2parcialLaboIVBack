@@ -20,6 +20,7 @@ return function (App $app) {
     $container = $app->getContainer();
     
     $app->post('/entidad/', \EntidadApi::class . ':AltaEntidad');
+    $app->post('/entidad/login/', \EntidadApi::class . ':Login');
 
 
 
