@@ -81,17 +81,23 @@ class EntidadApi
             $campo3 = $args['campo3'];
             $entidadDao = new App\Models\Entidad;
 
-            $entidades = $entidadDao->where('campo3', '=', $campo3)
-                                    ->select('campo1')
-                                    ->get();
+            if($campo3 == 'todos')
+            {
+                $entidades = $entidadDao->get();
+                return $response->withJson($entidades, 200);
+            }
+            else
+            {
+                $entidades = $entidadDao->where('campo3', '=', $campo3)
+                                        ->get();
+                return $response->withJson($entidades, 200);
+            }   
         }
         catch(Exception $e)
         {
             $error = $e->getMessage();
             return array("Estado" => "Error", "Mensaje" => $error);
         }
-
-        return $response->withJson($entidades, 200);
     }
     
 }

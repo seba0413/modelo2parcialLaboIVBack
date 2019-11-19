@@ -27,14 +27,28 @@ return function (App $app) {
     $app->post('/entidad/login/', \EntidadApi::class . ':Login');
     $app->get('/entidades/{campo3}/', \EntidadApi::class . ':ObtenerEntidades');
 
-
-
     $app->post('/entidad2/alta/', \Entidad2Api::class . ':AltaEntidad2')
     ->add(\Middleware::class . ':ValidarAdmin')
     ->add(\Middleware::class . ':ValidarToken');
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     //PARCIAL PROGRAMACION III
 
