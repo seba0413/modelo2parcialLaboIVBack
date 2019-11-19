@@ -35,7 +35,7 @@ return function (App $app) {
     ->add(\Middleware::class . ':ValidarToken');
     $app->get('/entidades2/', \Entidad2Api::class . ':ObtenerEntidades2');
 
-    $app->post('/entidad1_2/alta/', \Entidad1_Entidad2Api::class . ':AltaEntidad1_2');
+    $app->post('/entidad1_2/alta/', \Entidad1_Entidad2Api::class . ':AltaEntidad1_2')
     ->add(\Middleware::class . ':ValidarAlumno')
     ->add(\Middleware::class . ':ValidarToken');
 
