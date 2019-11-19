@@ -30,6 +30,22 @@ class Entidad2Api
         }
         return $response->withJson($mensaje, 200);
     }
+
+    public function ObtenerEntidades2($request, $response, $args)
+    {
+        try
+        {
+            $entidades2Dao = new App\Models\Entidad2;
+            $entidades2 = $entidades2Dao->get();
+
+            return $response->withJson($entidades2, 200);
+        }
+        catch(Exception $e)
+        {
+            $error = $e->getMessage();
+            return array("Estado" => "Error", "Mensaje" => $error);
+        }
+    }
 }
 
 ?>
