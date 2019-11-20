@@ -135,7 +135,7 @@ class EntidadApi
             $entidad = $entidadDao  ->orderBy('id', 'desc')
                                     ->first();
 
-            $entidad->campo4 = $url . $extension[0];
+            $entidad->campo4 = $url . $extension[0] . '.' . $extension[$index];
             $entidad->save();
 
             return $response->withJson(array("Estado" => "Ok", "Mensaje" => "Foto Guardada"),200);  
