@@ -25,8 +25,7 @@ class Entidad2Api
         }   
         catch(Exception $e)
         {
-            $error = $e->getMessage();
-            $mensaje = array("Estado" => "Error", "Mensaje" => $error);
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => $e->getMessage()),200);
         }
         return $response->withJson($mensaje, 200);
     }
@@ -42,8 +41,26 @@ class Entidad2Api
         }
         catch(Exception $e)
         {
-            $error = $e->getMessage();
-            return array("Estado" => "Error", "Mensaje" => $error);
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => $e->getMessage()),200);
+        }
+    }
+
+    public function ObtenerEntidades2_Item3($request, $response, $args)
+    {
+        try
+        {
+            $idEntidad1Item3 = $args['idItem3'];
+            $entidad1Dao = new App\Models\Entidad;
+            $entidad1 = $entidad1Dao->where('id', '=', $idEntidad1Item3)->first();
+
+            $entidad2Dao = new App\Models\Entidad2;
+            $entidades2 = $entidad2Dao->where('campo4', '=', $entidad1->campo1)->get();
+
+            return $response->withJson($entidades2, 200);
+        }
+        catch(Exception $e)
+        {
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => $e->getMessage()),200);
         }
     }
 }

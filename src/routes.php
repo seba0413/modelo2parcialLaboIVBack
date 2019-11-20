@@ -28,12 +28,15 @@ return function (App $app) {
     $app->post('/entidad/', \EntidadApi::class . ':AltaEntidad');
     $app->post('/entidad/login/', \EntidadApi::class . ':Login');
     $app->get('/entidades/{campo3}/', \EntidadApi::class . ':ObtenerEntidades');
+    $app->get('/entidad/{id}', \EntidadApi::class . ':ObtenerEntidad');
     
 
     $app->post('/entidad2/alta/', \Entidad2Api::class . ':AltaEntidad2')
     ->add(\Middleware::class . ':ValidarAdmin')
     ->add(\Middleware::class . ':ValidarToken');    
     $app->get('/entidades2/', \Entidad2Api::class . ':ObtenerEntidades2');
+    $app->get('/entidades2/{idItem3}', \Entidad2Api::class . ':ObtenerEntidades2_Item3');
+
 
     $app->post('/entidad1_2/alta/', \Entidad1_Entidad2Api::class . ':AltaEntidad1_2')
     ->add(\Middleware::class . ':ValidarAlumno')

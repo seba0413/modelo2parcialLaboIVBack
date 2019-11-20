@@ -96,7 +96,25 @@ class EntidadApi
         catch(Exception $e)
         {
             $error = $e->getMessage();
-            return array("Estado" => "Error", "Mensaje" => $error);
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => $error),200);
+        }
+    }
+
+    public function ObtenerEntidad($request, $response, $args)
+    {
+        try
+        {
+            $id = $args['id'];
+            $entidadDao = new App\Models\Entidad;
+
+            $entidad = $entidadDao->where('id', '=', $id)->first();
+
+            return $response->withJson($entidad, 200);
+        }
+        catch(Exception $e)
+        {
+            $error = $e->getMessage();
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => $error),200);
         }
     }
     
