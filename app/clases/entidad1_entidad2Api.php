@@ -61,6 +61,24 @@ class Entidad1_Entidad2Api
             return $response->withJson($respuesta, 200);
         }
     }
+
+    public function ListarItem2_Item3($request, $response, $args)
+    {
+        try
+        {
+            $idEntidad2 = $args['idEntidad2'];
+            $entidad1_2Dao = new App\Models\Entidad1_Entidad2;
+            $entidad1_2 = $entidad1_2Dao->where('idEntidad2', '=', $idEntidad2)
+                                        ->join('entidades', 'entidades.id', '=', 'entidad1_entidad2.idEntidad1')
+                                        ->get();
+
+            return $response->withJson($entidad1_2, 200);                             
+        }   
+        catch(Exception $e)
+        {
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => $e->getMessage()),200);
+        }
+    }
 }
 
 ?>
