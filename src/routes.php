@@ -45,6 +45,8 @@ return function (App $app) {
     $app->get('/item2/item3/{idEntidad2}', \Entidad1_Entidad2Api::class . ':ListarItem2_Item3');
     
 
+    $app->post('/entidad/foto', \EntidadApi::class . ':GuardarFoto');
+
 
 
 
