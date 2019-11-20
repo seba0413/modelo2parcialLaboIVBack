@@ -35,7 +35,7 @@ class EntidadApi
         catch(Exception $e)
         {
             $error = $e->getMessage();
-            $mensaje =  array("Estado" => "Error ", "Mensaje " => $error); 
+            $mensaje =  array("Estado" => "Error", "Mensaje" => $error); 
         }
 
         return $response->withJson($mensaje, 200);

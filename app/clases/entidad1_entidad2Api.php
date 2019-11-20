@@ -16,7 +16,7 @@ class Entidad1_Entidad2Api
                                             ->first();
             if($entidadValidacion)
             {
-                $respuesta = array("Estado" => "Ok", "Mensaje" => "Ya estás inscripto a esta materia");
+                $respuesta = array("Estado" => "Alerta", "Mensaje" => "Ya estás inscripto a esta materia");
             }   
             else
             {
@@ -39,6 +39,27 @@ class Entidad1_Entidad2Api
         }
 
         return $response->withJson($respuesta, 200);
+    }
+
+    public function ListarEntidad1_2($request, $response, $args)
+    {
+        try
+        {
+            $idEntidad1 = $args['idEntidad1'];
+            $entidad1_2Dao = new App\Models\Entidad1_Entidad2;
+
+            $entidades2 = $entidad1_2Dao->where('idEntidad1', '=', $idEntidad1)
+                                        ->join('entidades2', 'entidades2.id', '=', 'entidad1_entidad2.idEntidad2')
+                                        ->get();    
+                                        
+            return $response->withJson($entidades2, 200);                            
+        }
+        catch(Exception $e)
+        {
+            $error = $e->getMessage();
+            $respuesta = array("Estado" => "Error", "Mensaje" => $error);
+            return $response->withJson($respuesta, 200);
+        }
     }
 }
 

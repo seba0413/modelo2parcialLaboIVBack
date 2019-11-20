@@ -22,7 +22,7 @@ class Middleware
     {
         $payload = $request->getAttribute("payload")["Payload"];
         $data = $payload->data;
-
+        
         if($data->campo3 == "administrador"){
             return $next($request,$response);
         }
@@ -38,7 +38,7 @@ class Middleware
         $payload = $request->getAttribute("payload")["Payload"];
         $data = $payload->data;
 
-        if($data->tipo == "alumno"){
+        if($data->campo3 == "alumno"){
             return $next($request,$response);
         }
         else{
