@@ -62,6 +62,25 @@ class Entidad1_Entidad2Api
         }
     }
 
+    public function ListarAlumnosInscriptosEnMateria($request, $response, $args)
+    {
+        try
+        {
+            $idMateria = $args['idMateria'];
+            $alumnosInscriptos = new App\Models\Entidad1_Entidad2;
+
+            $alumnos = $alumnosInscriptos->where('idEntidad2', '=', $idMateria)
+                                ->join('entidades', 'entidades.id', '=', 'entidad1_entidad2.idEntidad1')
+                                ->get();
+            
+            return $response->withJson($alumnos, 200);
+        }
+        catch(Exception $e)
+        {
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => $e->getMessage()));
+        }
+    }
+
     public function ListarItem2_Item3($request, $response, $args)
     {
         try

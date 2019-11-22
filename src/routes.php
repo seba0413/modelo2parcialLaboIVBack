@@ -43,9 +43,15 @@ return function (App $app) {
     ->add(\Middleware::class . ':ValidarToken');
     $app->get('/entidad1_2/{idEntidad1}', \Entidad1_Entidad2Api::class . ':ListarEntidad1_2');
     $app->get('/item2/item3/{idEntidad2}', \Entidad1_Entidad2Api::class . ':ListarItem2_Item3');
+
+    $app->get('/alumnos/materia/{idMateria}', \Entidad1_Entidad2Api::class . ':ListarAlumnosInscriptosEnMateria');
+
+    
     
 
     $app->post('/entidad/foto', \EntidadApi::class . ':GuardarFoto');
+    $app->post('/entidad2/foto', \Entidad2Api::class . ':GuardarFotoMateria');
+
 
 
 

@@ -30,6 +30,35 @@ class Entidad2Api
         return $response->withJson($mensaje, 200);
     }
 
+    public function GuardarFotoMateria($request, $response, $args)
+    {
+        $url = 'http://localhost:80/2doParcial/public/fotosMaterias/';
+        try
+        {
+            $foto = $_FILES['image'];
+            $ruta = $foto['tmp_name'];
+            $extension = explode(".",$foto['name']);
+            $index = count($extension) - 1; 
+            $rutafoto = "./fotosMaterias/{$extension[0]}.{$extension[$index]}";
+            $fecha = date("d") . "-" . date("m") . "-" . date("Y");
+            move_uploaded_file($ruta, $rutafoto); 
+
+            $entidad2Dao = new App\Models\Entidad2;
+            $entidad2 = $entidad2Dao    ->orderBy('id', 'desc')
+                                        ->first();
+
+            $entidad2->foto = $url . $extension[0] . '.' . $extension[$index];
+            $entidad2->save();
+
+            return $response->withJson(array("Estado" => "Ok", "Mensaje" => "Foto Guardada"),200);  
+            
+        }
+        catch(Exception $e)
+        {     
+            return $response->withJson(array("Estado" => "Error", "Mensaje" => "Error al guardar la foto"),200);
+        }
+    }
+
     public function ObtenerEntidades2($request, $response, $args)
     {
         try
